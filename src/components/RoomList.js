@@ -4,12 +4,19 @@ class RoomList extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        rooms: []
+        name: "",
+        rooms: [],
     };
 
   this.roomsRef = this.props.firebase.database().ref('rooms');
+  this.handleChange = this.handleChange.bind(this);
+  this.createRoom = this.createRoom.bind(this);
 
   }
+
+    handleChange(e){
+      this.setState({ name: e.target.value })
+    }
 
     componentDidMount() {
       this.roomsRef.on('child_added', snapshot => {
@@ -19,13 +26,31 @@ class RoomList extends Component {
       });
     }
 
+    createRoom(e) {
+    e.preventDefault();
+    this.roomsRef.push({ name: this.state.name });
+    this.setState({name: ""})
+    }
+
     render(){
       const roomList = this.state.rooms.map((room) =>
-      <li key={room.key}>{room.name}</li>
+      <li key={room.key}>{room.name}</li>);
+      const newRoom = (
+      <form onSubmit={this.createRoom}>
+        <input type="text" value={this.state.name} onChange={this.handleChange} placeholder="Create new chat room"  />
+        <input type="submit" value="Start Chat"/>
+      </form>
     );
       return(
-        <ul>{roomList}</ul>
+        <section>
+          <div>{newRoom}</div>
+          <ul>{roomList}</ul>
+        </section>
+
       );
+      //second checkpoint create room
+
+
     }
 }
 
