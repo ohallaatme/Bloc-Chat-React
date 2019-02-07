@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class RoomList extends Component {
+export class RoomList extends Component {
   constructor(props) {
     super(props);
       this.state = {
@@ -26,6 +26,11 @@ class RoomList extends Component {
       });
     }
 
+    selectRoom(room) {
+      this.props.activeRoom(room);
+    }
+
+
     createRoom(e) {
     e.preventDefault();
     this.roomsRef.push({ name: this.state.name });
@@ -34,7 +39,7 @@ class RoomList extends Component {
 
     render(){
       const roomList = this.state.rooms.map((room) =>
-      <li key={room.key}>{room.name}</li>);
+      <li key={room.key} onClick={(e) => this.selectRoom(room, e)}>{room.name}</li>);
       const newRoom = (
       <form onSubmit={this.createRoom}>
         <input type="text" value={this.state.name} onChange={this.handleChange} placeholder="Create new chat room"  />
@@ -53,17 +58,3 @@ class RoomList extends Component {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-export default RoomList;
