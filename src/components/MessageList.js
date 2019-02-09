@@ -32,7 +32,7 @@ export class MessageList extends Component {
 
     componentDidMount() {
       this.messagesRef.on('child_added', snapshot => {
-        const message = snapshot.val();
+        //const message = snapshot.val();
         message.key = snapshot.key;
         this.setState({ messages: this.state.messages.concat(message) })
       });
