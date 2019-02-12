@@ -32,7 +32,6 @@ export class User extends Component{
     return(
 
       <section>
-        <div className="user-display-name">{ this.props.user.displayName }</div>
         <button onClick={this.signIn}>Sign In</button>
         <button onClick={this.signOut}>Sign Out</button>
       </section>

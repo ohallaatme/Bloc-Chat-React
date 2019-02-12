@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class MessageList extends Component {
   constructor(props){
     super(props);
-    this.state = { username: "", content: "", sentAt: "", roomId: "", messages: []}
+    this.state = { username: "", content: "", sentAt: "", roomID: "", messages: []}
     this.messagesRef = this.props.firebase.database().ref('messages');
     this.handleChange = this.handleChange.bind(this);
     this.createMessage = this.createMessage.bind(this);
@@ -51,7 +51,7 @@ render() {
   const messageList = (
     this.state.messages.map((message) => {
       if (message.roomId === activeRoom) {
-        return <li key={message.key}>{message.content}</li>
+        return <li key={message.key}>{message.username}: {message.content}</li>
       }
       return null;
     })
